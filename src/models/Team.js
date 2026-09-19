@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
 
-export const User = sequelize.define(
-  "User",
+export const Team = sequelize.define(
+  "Team",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -15,22 +15,17 @@ export const User = sequelize.define(
       allowNull: false,
     },
 
-    email: {
-      type: DataTypes.STRING(250),
+    admin_user_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
+      references: {
+        model: "users",
+        key: "id",
       },
-    },
-
-    password: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
     },
   },
   {
-    tableName: "users",
+    tableName: "teams",
     timestamps: false,
   }
 );
