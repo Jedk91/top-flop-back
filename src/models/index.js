@@ -5,6 +5,7 @@ import { Salon } from "./Salon.js";
 import { Participant } from "./Participant.js";
 import { Vote } from "./Vote.js";
 
+
 // USER
 
 User.hasMany(Team, {
@@ -95,7 +96,7 @@ Vote.belongsTo(Participant, {
   as: "target",
 });
 
-export {
+export const Tables = {
   User,
   Team,
   Salon,
