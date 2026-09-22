@@ -38,11 +38,11 @@ export const Vote = sequelize.define(
       },
     },
 
-    salon_id: {
+    lobby_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "salons",
+        model: "lobbies",
         key: "id",
       },
     },
@@ -50,5 +50,5 @@ export const Vote = sequelize.define(
   {
     tableName: "votes",
     timestamps: false,
-  }
+  },
 );

@@ -10,11 +10,11 @@ export const Participant = sequelize.define(
       autoIncrement: true,
     },
 
-    salon_id: {
+    lobby_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "salons",
+        model: "lobbies",
         key: "id",
       },
     },
@@ -34,8 +34,8 @@ export const Participant = sequelize.define(
     indexes: [
       {
         unique: true,
-        fields: ["salon_id", "user_id"],
+        fields: ["lobby_id", "user_id"],
       },
     ],
-  }
+  },
 );

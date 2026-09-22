@@ -1,10 +1,9 @@
 import { User } from "./User.js";
 import { Team } from "./Team.js";
 import { TeamMember } from "./TeamMember.js";
-import { Salon } from "./Salon.js";
+import { Lobby } from "./Lobby.js";
 import { Participant } from "./Participant.js";
 import { Vote } from "./Vote.js";
-
 
 // USER
 
@@ -24,17 +23,18 @@ TeamMember.belongsTo(User, {
   foreignKey: "user_id",
 });
 
-User.hasMany(Salon, {
+User.hasMany(Lobby, {
   foreignKey: "creator_user_id",
 });
 
-Salon.belongsTo(User, {
+Lobby.belongsTo(User, {
   foreignKey: "creator_user_id",
 });
 
 // TEAM
 
 // Une Team possède plusieurs TeamMembers
+
 Team.hasMany(TeamMember, {
   foreignKey: "team_id",
 });
@@ -43,38 +43,42 @@ TeamMember.belongsTo(Team, {
   foreignKey: "team_id",
 });
 
-// Une Team peut être utilisée par plusieurs Salons
-Team.hasMany(Salon, {
+// Une Team peut être utilisée par plusieurs Lobbies
+
+Team.hasMany(Lobby, {
   foreignKey: "team_id",
 });
 
-Salon.belongsTo(Team, {
+Lobby.belongsTo(Team, {
   foreignKey: "team_id",
 });
 
-// SALON
+// LOBBY
 
-// Un Salon possède plusieurs Participants
-Salon.hasMany(Participant, {
-  foreignKey: "salon_id",
+// Un Lobby possède plusieurs Participants
+
+Lobby.hasMany(Participant, {
+  foreignKey: "lobby_id",
 });
 
-Participant.belongsTo(Salon, {
-  foreignKey: "salon_id",
+Participant.belongsTo(Lobby, {
+  foreignKey: "lobby_id",
 });
 
-// Un Salon possède plusieurs Votes
-Salon.hasMany(Vote, {
-  foreignKey: "salon_id",
+// Un Lobby possède plusieurs Votes
+
+Lobby.hasMany(Vote, {
+  foreignKey: "lobby_id",
 });
 
-Vote.belongsTo(Salon, {
-  foreignKey: "salon_id",
+Vote.belongsTo(Lobby, {
+  foreignKey: "lobby_id",
 });
 
 // PARTICIPANT
 
 // Un Participant peut avoir plusieurs votes en tant que votant
+
 Participant.hasMany(Vote, {
   foreignKey: "voter_id",
   as: "votesGiven",
@@ -86,6 +90,7 @@ Vote.belongsTo(Participant, {
 });
 
 // Un Participant peut être la cible de plusieurs votes
+
 Participant.hasMany(Vote, {
   foreignKey: "target_id",
   as: "votesReceived",
@@ -99,8 +104,8 @@ Vote.belongsTo(Participant, {
 export const Tables = {
   User,
   Team,
-  Salon,
+  Lobby,
   TeamMember,
   Participant,
-  Vote
-}
+  Vote,
+};
