@@ -1,21 +1,35 @@
-import * as authService from "../services/authService.js";
+import { registerUser, loginUser } from "../services/authService.js";
 
 export async function register(req, res) {
   try {
-    const newUser = req.body;
+    const { name, email, password } = req.body;
 
-    if (await authService.emailAlreadyUsed(newUser.email)) {
-      return res.status(409).json({
-        error: "Cette adresse email est déjà utilisée",
-      });
-    }
+    const user = await registerUser(name, email, password);
 
-    const userAdded = await authService.insert(newUser);
-
-    return res.status(201).json(userAdded);
+    return res.status(201).json({
+      message: "Compte créé avec succès",
+      user,
+    });
   } catch (error) {
-    return res.status(500).json({
-      error: "Une erreur est survenue",
+    return res.status(error.status || 500).json({
+      error: error.message,
+    });
+  }
+}
+
+export async function login(req, res) {
+  try {
+    const { email, password } = req.body;
+
+    const token = await loginUser(email, password);
+
+    return res.status(200).json({
+      message: "Connexion réussie",
+      token,
+    });
+  } catch (error) {
+    return res.status(error.status || 500).json({
+      error: error.message,
     });
   }
 }
